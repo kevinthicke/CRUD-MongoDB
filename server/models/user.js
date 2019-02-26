@@ -23,7 +23,11 @@ const userSchema = new Schema({
     },
     role: {
         type: String,
-        default: 'USER_ROLE'
+        default: 'USER_ROLE',
+        enum: {
+            values: ['USER_ROLE', 'ADMIN_ROLE'],
+            message: '{VALUE} not valid. Try USER_ROLE or ADMIN_ROLE'
+        }
     },
     state: {
         type: Boolean,
