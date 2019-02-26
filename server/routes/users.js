@@ -34,13 +34,29 @@ router.post('/', (request, resolve) => {
 
 })
 
+router.put('/:id', (request, resolve) => {
+    const { id } = request.params;
+    const updatedUser = request.body;
+
+    User.findByIdAndUpdate(id, updatedUser, { new: true }, (err, response) => {
+        if(err) {
+            return resolve.status(400).json({
+                ok: false,
+                err
+            });
+        }
+
+        resolve.json({
+            ok: true,
+            updatedUser: response
+        })
+    })
+})
+
 router.delete('/', (request, resolve) => {
     resolve.send('delete users!')
 })
 
-router.put('/', (request, resolve) => {
-    resolve.send('get users!')
-})
 
 export {
     router
