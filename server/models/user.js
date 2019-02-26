@@ -26,7 +26,7 @@ const userSchema = new Schema({
         default: 'USER_ROLE',
         enum: {
             values: ['USER_ROLE', 'ADMIN_ROLE'],
-            message: '{VALUE} not valid. Try USER_ROLE or ADMIN_ROLE'
+            message: '{VALUE} not valid'
         }
     },
     state: {
@@ -39,6 +39,19 @@ const userSchema = new Schema({
     }
 
 })
+
+/*
+toJSON method is called when you want to print the UserSchema. 
+We modify it so that it does not show the password.
+*/
+userSchema.methods.toJSON = function() {
+    const objUser = this.toObject();
+
+    delete objUser.password;
+
+    return objUser;
+}
+
 
 userSchema.plugin(uniqueValidator, { message: '{PATH} must be unique'});
 

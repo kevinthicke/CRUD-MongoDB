@@ -1,3 +1,4 @@
+import bcrypt from 'bcrypt';
 import express from 'express';
 import User from './../models/user';
 
@@ -13,7 +14,7 @@ router.post('/', (request, resolve) => {
     const user = new User({
         name,
         email,
-        password,
+        password: bcrypt.hashSync(password, 10),
         role
     });
 
